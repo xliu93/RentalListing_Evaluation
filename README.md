@@ -1,4 +1,4 @@
-# ml_spring17
+# Project of Machine Learning and Computational Statistics
 
 #### TOPIC IDEAS
 
