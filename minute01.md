@@ -1,5 +1,6 @@
-# Group Meeting #1
-Feb 27 
+# Group Meeting Minute
+
+## Meeting #1 - Feb 27
 
 1. Discussed the details about the three potential topic ideas
 
