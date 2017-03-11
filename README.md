@@ -18,3 +18,41 @@
 - May 3rd (Wed 8:35–9:25pm): Third meeting with advisers
 - May 9th (Tues 5–7pm): Project Poster Session
 - May 12th, 6pm: Final Project Reports Due
+
+
+
+#### Project topic
+Multiclass Classification of Rental Listing Quality
+
+#### Data Source
+Kaggle, privided by Renthop.
+https://www.kaggle.com/c/two-sigma-connect-rental-listing-inquiries
+
+Input:  50MB Json
+bathrooms: number of bathrooms
+bedrooms: number of bathrooms
+building_id
+created
+description
+display_address
+features: a list of features about this apartment
+latitude
+listing_id
+longitude
+manager_id
+photos: a list of photo links. 
+price: in USD
+street_address
+
+Output:
+interest_level: this is the target variable. It has 3 categories: 'high', 'medium', 'low'
+
+#### Project Goals
+1. Learn to process multimedia data ranging from numbers, dates, categorical features, text, geographical data, and pictures(tentative).
+2. Learn to preprocess geographical data using clustering.
+3. Try different classification algorithms like SVM, logistic regresssion, decision tree with AdaBoost, to improve result.
+4. Learn to deal with categorical data and interactions among categories.
+5. Optional. Learn to use CNN to extract information from pictures. Reference: https://engineeringblog.yelp.com/2016/11/finding-beautiful-yelp-photos-using-deep-learning.html
+
+
+
