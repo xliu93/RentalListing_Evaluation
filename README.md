@@ -30,23 +30,16 @@ https://www.kaggle.com/c/two-sigma-connect-rental-listing-inquiries
 
 ##### Input:  70MB Json
 
-Numbers: bathrooms, bedrooms, price in USD
-
-Date: created
-
-keys: building_id, listing_id, manager_id
-
-Text: description, display_address, street_address
-
-Categorical features: features
-
-Geographical data: latitude, longitude
-
-Photos: a list of photo links. 
+- Numbers: bathrooms, bedrooms, price in USD
+- Date: created
+- keys: building_id, listing_id, manager_id
+- Text: description, display_address, street_address
+- Categorical features: features
+- Geographical data: latitude, longitude
+- Photos: a list of photo links. 
 
 ##### Output:
-
-Interest_level: this is the target variable. It has 3 categories: 'high', 'medium', 'low'
+- Interest_level: this is the target variable. It has 3 categories: 'high', 'medium', 'low'
 
 #### Project Goals
 1. Learn to process multimedia data ranging from numbers, dates, categorical features, text, geographical data, and pictures(tentative).
