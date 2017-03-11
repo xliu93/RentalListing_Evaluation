@@ -28,7 +28,7 @@ Multiclass Classification of Rental Listing Quality
 Kaggle, privided by Renthop.
 https://www.kaggle.com/c/two-sigma-connect-rental-listing-inquiries
 
-# Input:  50MB Json
+##### Input:  50MB Json
 
 Numbers: bathrooms, bedrooms, price in USD
 
@@ -44,7 +44,7 @@ Geographical data: latitude, longitude
 
 Photos: a list of photo links. 
 
-# Output:
+##### Output:
 
 Interest_level: this is the target variable. It has 3 categories: 'high', 'medium', 'low'
 
