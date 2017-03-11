@@ -28,13 +28,16 @@ The dataset is available on [Kaggle][1], provided by RentHop.
 
 ### PROJECT OBJECTIVE
 1. Learn to process multimedia data ranging from numbers, dates, categorical features, text, geographical data, and pictures(if time permits, use CNN with [reference][2]).
-2. Learn to preprocess geographical data using clustering.
-3. Make thorough application of classification algorithms and compare results.
-4. Learn to deal with categorical data and interactions among categories.
+2. Make thorough application of classification algorithms and compare results.
+3. Learn to deal with categorical data and interactions among categories.
 
 ### METHOD
-1. Currently we don't know what is the best approach, and we will investigate on different classification algorithms including SVM, logistic regresssion, decision tree with AdaBoost.
-2. Engineer new features with available data to improve the performance of predictive model.
+1. Breaking down the three levels of interest 'high', 'medium', and 'low', we can think of the three levels representing whether the building is under-valued, properly-valued, or over-valued, with the information given. Therefore, to achieve high accuracy, we need to model the expected value of a certain listing. This may include factors on room, location, service, appliances, attractiveness of description, good photos, market price of alternatives, etc. 
+2. Currently we don't know what is the best approach, and we will investigate on different classification algorithms including but not limited to SVM, logistic regresssion, decision tree with AdaBoost.
+3. Since we don't have an existing feature to indicate convenience of life around the building, we have to create either a score or category of it.  Possibly we can preprocess geographical data using clustering methods under the assumption that close locations will have similar community services. 
+4. Number of bedrooms is somewhat a rigid demand when finding a rental, and it has few possible values, say 0(studio), 1, 2, 3, and 4+. We can regard it as categorical data under certain conditions. This also happends to the location clusters. We should decide whether to use different models for different categories or to use same model across categories.
+5. The 'feature' column in dataset is somewhat repetitive to 'description' but in a structured way. We will try to find the contribution of additional information given by the text description as well as the interaction between the two features. 
+6. More feature engineering will go on as we proceed with the project.
 
 [2]: https://engineeringblog.yelp.com/2016/11/finding-beautiful-yelp-photos-using-deep-learning.html
 <br>
