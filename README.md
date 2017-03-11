@@ -1,14 +1,45 @@
 # Project of Machine Learning and Computational Statistics
 
-#### TOPIC IDEAS
+## TOPIC IDEA
 
-(will be updated upon final decision of the group)
+### Introduction
+In this project, we will build a predictive model of how popular an apartment rental listing is based on the listing content, in the hope of helping listing website better handle fraud control, identify potential listing quality issues, and allow owners and agents to better understand renters’ needs and preferences.. The apartments involved are located in New York City. Our objective is to give an estimation of the number of inquiries a listing has in the duration that the listing was live on the site, and label it with three categories: high, medium, and low level of interest. 
 
-1. Research on how to combine different signals/strategies. As for alpha-seeking strategies, a large number of basic strategies, which are also known as signals, can be combined to construct a portfolio. The benefits are explained by Modern Portfolio Theory. We can figure out an approach to construct the portfolios using machine learning (I am able to provide some signals, with other references).
-2. Statistical arbitrage strategy research, which is to find potential trade opportunities in high frequency market data, could be a good application of time-series prediction model. 
-3. Market behavior research. Last semester I audited a few classes of Computing in Finance, the professor introduced a research topic of "Market Mimicking", which is to analyze the volatility before/after a market crash.
+### PROBLEM OVERVIEW
+The dataset is available on [Kaggle][1], provided by RentHop.
+[1]: https://www.kaggle.com/c/two-sigma-connect-rental-listing-inquiries
 
-#### KEY DATES (from the course website)
+**Input: 70MB Json**
+
+- Numbers: bathrooms, bedrooms, price in USD
+- Date: the date that the listing is created
+- keys: building_id, listing_id, manager_id
+- Text: description, display_address, street_address
+- Categorical features: features
+- Geographical data: latitude, longitude
+- Photos: zero or more images 
+
+**Outcome**
+- Interest_level: The level of interest is defined by the number of inquiries a listing has in the duration that the listing was live on the site, and has 3 categories: 'high', 'medium' and 'low'.
+
+**Loss/Objective function**
+- This is a classification problem, and we are intended to use logrithmic multi-class loss.
+
+
+### PROJECT OBJECTIVE
+1. Learn to process multimedia data ranging from numbers, dates, categorical features, text, geographical data, and pictures(if time permits, use CNN with [reference][2]).
+2. Learn to preprocess geographical data using clustering.
+3. Make thorough application of classification algorithms and compare results.
+4. Learn to deal with categorical data and interactions among categories.
+
+### METHOD
+1. Currently we don't know what is the best approach, and we will investigate on different classification algorithms including SVM, logistic regresssion, decision tree with AdaBoost.
+2. Engineer new features with available data to improve the performance of predictive model.
+
+[2]: https://engineeringblog.yelp.com/2016/11/finding-beautiful-yelp-photos-using-deep-learning.html
+<br>
+
+## KEY DATES (from the course website)
 
 - Feb 28 (Tues 5pm): Deadline for choosing project groups
 - March 6 (Mon 9pm): Email one-sentence project idea(s) to adviser, along with personal intros
@@ -18,35 +49,3 @@
 - May 3rd (Wed 8:35–9:25pm): Third meeting with advisers
 - May 9th (Tues 5–7pm): Project Poster Session
 - May 12th, 6pm: Final Project Reports Due
-
-
-
-#### Project Topic
-Multiclass Classification of Rental Listing Quality
-
-#### Data Source
-Kaggle, privided by Renthop.
-https://www.kaggle.com/c/two-sigma-connect-rental-listing-inquiries
-
-##### Input:  70MB Json
-
-- Numbers: bathrooms, bedrooms, price in USD
-- Date: created
-- keys: building_id, listing_id, manager_id
-- Text: description, display_address, street_address
-- Categorical features: features
-- Geographical data: latitude, longitude
-- Photos: a list of photo links. 
-
-##### Output:
-- Interest_level: this is the target variable. It has 3 categories: 'high', 'medium', 'low'
-
-#### Project Goals
-1. Learn to process multimedia data ranging from numbers, dates, categorical features, text, geographical data, and pictures(tentative).
-2. Learn to preprocess geographical data using clustering.
-3. Try different classification algorithms like SVM, logistic regresssion, decision tree with AdaBoost, to improve result.
-4. Learn to deal with categorical data and interactions among categories.
-5. Optional. Learn to use CNN to extract information from pictures. Reference: https://engineeringblog.yelp.com/2016/11/finding-beautiful-yelp-photos-using-deep-learning.html
-
-
-
