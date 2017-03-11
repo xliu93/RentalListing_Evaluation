@@ -29,15 +29,23 @@ Kaggle, privided by Renthop.
 https://www.kaggle.com/c/two-sigma-connect-rental-listing-inquiries
 
 Input:  50MB Json
+
 Numbers: bathrooms, bedrooms, price in USD
+
 Date: created
+
 keys: building_id, listing_id, manager_id
+
 Text: description, display_address, street_address
+
 Categorical features: features
+
 Geographical data: latitude, longitude
+
 Photos: a list of photo links. 
 
 Output:
+
 Interest_level: this is the target variable. It has 3 categories: 'high', 'medium', 'low'
 
 #### Project Goals
