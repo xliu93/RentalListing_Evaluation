@@ -28,7 +28,7 @@ Multiclass Classification of Rental Listing Quality
 Kaggle, privided by Renthop.
 https://www.kaggle.com/c/two-sigma-connect-rental-listing-inquiries
 
-##### Input:  50MB Json
+##### Input:  70MB Json
 
 Numbers: bathrooms, bedrooms, price in USD
 
