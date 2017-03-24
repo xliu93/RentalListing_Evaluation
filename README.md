@@ -7,6 +7,7 @@ In this project, we will build a predictive model of how popular an apartment re
 
 ### PROBLEM OVERVIEW
 The dataset is available on [Kaggle][1], provided by RentHop.
+
 [1]: https://www.kaggle.com/c/two-sigma-connect-rental-listing-inquiries
 
 **Input: 70MB Json**
