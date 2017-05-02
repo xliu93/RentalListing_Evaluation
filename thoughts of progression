@@ -71,10 +71,11 @@ Feature analysis:
     boosting + bagging/CV to overcome overfitting
     XGboost (should have best performance)
     Random Forest (ensemble of decision trees)
-    Boosted logistic regression/naive bayes (FSAM with log loss) better than single model
+    Boosted logistic regression (equivalent to Adaboost!) better than single model
+              https://web.stanford.edu/~hastie/Papers/AdditiveLogisticRegression/alr.pdf
     *+probabiliy calibration (Isotonic/Sigmoid)
     The paper shows that XGboost with log loss is best
-    http://www.cs.cornell.edu/~caruana/niculescu.scldbst.crc.rev4.pdf
+              http://www.cs.cornell.edu/~caruana/niculescu.scldbst.crc.rev4.pdf
     
     
  Special thoughts on Price
