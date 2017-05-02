@@ -74,6 +74,7 @@ Feature analysis:
     Boosted logistic regression (equivalent to Adaboost!) better than single model
               https://web.stanford.edu/~hastie/Papers/AdditiveLogisticRegression/alr.pdf
     *+probabiliy calibration (Isotonic/Sigmoid)
+              https://jmetzen.github.io/2015-04-14/calibration.html
     The paper shows that XGboost with log loss is best
               http://www.cs.cornell.edu/~caruana/niculescu.scldbst.crc.rev4.pdf
     
