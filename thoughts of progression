@@ -1,4 +1,5 @@
 4/26
+5/2*
 
 Algorithms compatible with log loss takes in a probability (0,1) value
   naive bayes (likelyhood)
@@ -7,12 +8,22 @@ Algorithms compatible with log loss takes in a probability (0,1) value
  
     Note:
     SVM is not in this category. Margin can somewhat show the confidence of the classification, but not of same scale as probability.
+    Can use log loss for the yhat, but not optimize on log loss.
+    problem: the probability returned by most classifiers optimized on log-loss is biased
+   *Solution: 1. using log loss based models (logistic regression)
+              2. using probability calibration (sklearn.calibration) not seen on Kaggle!
  
 Feature analysis:
  
  (longitude, latitude) -> location for clustering -> 0-1 one hot encoding
         assuming there's a difference caused by location
         hyperparameter: numbers of clusters
+        *data pattern: most data around NYC -74.05<longtitude<-73.75
+                                            40.4<latitude<40.9
+        method: In/OUT NYC
+        package: sklearn.cluster.birch
+        note: 50k training 75k testing
+        
         
  street addresss/building ID -> further identifies the exact building
         solves the problem of near neighborhood different tier quality
@@ -28,7 +39,7 @@ Feature analysis:
         find new features by word count using stop words and stemmers
         Note:        features extracted in text may have common part in "features". Should we take union or use separately?
                      This depends on our assumption of the effectiveness of communication (is "features" as powerful as "description")
-
+        
  manager_id -> 0-1 one hot
         some good managers can make the same listing more appealing?
         another very sparse feature
@@ -51,6 +62,8 @@ Feature analysis:
  Summary of feature analysis:
       lots of features (num_cluster+num_features_with_descrip is alreadly a lot) with sparse 0-1 encoding
       highly prone to overfitting
+      vc dimention?
+      need regularization
       
  Solutions:
  
@@ -59,13 +72,13 @@ Feature analysis:
     XGboost (should have best performance)
     Random Forest (ensemble of decision trees)
     Boosted logistic regression/naive bayes (FSAM with log loss) better than single model
-    
+    *+probabiliy calibration (Isotonic/Sigmoid)
     The paper shows that XGboost with log loss is best
     http://www.cs.cornell.edu/~caruana/niculescu.scldbst.crc.rev4.pdf
     
     
  Special thoughts on Price
       it's possible to regress price ~ other_features
-      can use pricehat as an extra feature for classification
+      can use (price-pricehat) as an extra feature for classification
       why or why not? Need to be tested.
-       
+      *Someone added white noise in their kernel.Is the regression another kind of white noise or regularization?
