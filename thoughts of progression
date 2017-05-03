@@ -84,3 +84,4 @@ Feature analysis:
       can use (price-pricehat) as an extra feature for classification
       why or why not? Need to be tested.
       *Someone added white noise in their kernel.Is the regression another kind of white noise or regularization?
+      *How should we ensemble probabilities? geometric mean or arithmetic mean?(when DropOut/CV/additive to be applied)
