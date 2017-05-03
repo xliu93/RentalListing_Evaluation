@@ -70,7 +70,7 @@ Feature analysis:
   Models applicable:
     boosting + bagging/CV to overcome overfitting
     XGboost (should have best performance)
-              Can compare with DART with dropout
+              *Can compare with DART with dropout
     Random Forest (ensemble of decision trees)
     Boosted logistic regression (equivalent to Adaboost! which does have predict_proba(X)!) better than single model
               https://web.stanford.edu/~hastie/Papers/AdditiveLogisticRegression/alr.pdf
