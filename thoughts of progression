@@ -40,10 +40,11 @@ Feature analysis:
         Note:        features extracted in text may have common part in "features". Should we take union or use separately?
                      This depends on our assumption of the effectiveness of communication (is "features" as powerful as "description")
         
- manager_id -> 0-1 one hot
+ *manager_id -> high category rate (0-1 ratio) or (high+medium) rate
         some good managers can make the same listing more appealing?
-        another very sparse feature
-
+        20% managers responsible for 80% listings
+        unknown manager_id.high_rate=0
+        
  photos -> 1-0 categorical: 1(num_photo > x) or something like {0,1-2,3-4,5+} categorical (can be decided by tree?)
          seeing the plot of nums of photos has little correlation with the satisfiction maybe we just need a threshold
          well shot photoes should show corresponding price of the listing but in fact highly noisy
