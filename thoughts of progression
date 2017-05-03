@@ -44,7 +44,7 @@ Feature analysis:
         some good managers can make the same listing more appealing?
         another very sparse feature
 
- photos -> 1-0 categorical: 1(num_photo > x) or something like {0,1-2,3-4,5+} categorical
+ photos -> 1-0 categorical: 1(num_photo > x) or something like {0,1-2,3-4,5+} categorical (can be decided by tree?)
          seeing the plot of nums of photos has little correlation with the satisfiction maybe we just need a threshold
          well shot photoes should show corresponding price of the listing but in fact highly noisy
  
