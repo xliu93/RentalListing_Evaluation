@@ -1,0 +1,145 @@
+'''
+Idea:
+Suppose type1 is a subtype of type2 (all elements of type1 is in type2)
+We can have the type difference specified as (median price of type1 -medianprice of type2) with or without scaling with med_type2
+
+eg. type1=type(2_bed X 55th_cluster X 1_bath)
+    type2=type(2_bed X 1_bath)
+    then, (med_type1-med_type2)/med_type2 is the percentage price difference caused by the cluster_55 vs all the locations
+    for each kind of listing(2_bedX 1_bath)
+use: can substitute use of one-hot clustering features or categorical feature (non-cardinal)
+pros: comparible (ordered) and continous
+
+Concern:
+  1. What if there's no correspondant (bedXbath)  tupple in the testing set?
+  2. Does this feature work for tree-base methods?
+
+
+Result:
+  Base model using Longtitude, Latitude coninuous variable. loss:0.5637
+  Using Clusters to substitute (Longitutde,Latitude) will decrease performance. loss:0.5861
+  Using binary encoding for Cluster will not reduce the decrease by much. loss:0.5852
+  Using (price difference between cluster mean and total mean)  as a feature will overfit. loss 0.553 
+    (significantly decrease training loss and tree levels (from 6 to 5) needed to train)
+
+
+
+
+
+
+
+
+
+
+
+#test product mapping
+n_clusters=50
+train=cluster_latlon(n_clusters,train)
+control=train.groupby('bedrooms')['price'].median()
+raw=train.groupby(['bedrooms','cluster_'+str(n_clusters)])['price'].median()
+value=train.groupby(['bedrooms','cluster_'+str(n_clusters)])['price'].median()-control
+Result:
+ok with (a,b)/c, however, (a,b,c)/(e,f) needs special mapping multi_map
+
+Feature Naming:
+cbed: controlling type of bedrooms
+dbed: showing difference caused by bedrooms
+
+'''
+from sklearn.cluster import Birch
+def cluster_latlon(n_clusters, data):  
+    #split the data between "around NYC" and "other locations" basically our first two clusters 
+    data_c=data[(data.longitude>-74.05)&(data.longitude<-73.75)&(data.latitude>40.4)&(data.latitude<40.9)]
+    data_e=data[~((data.longitude>-74.05)&(data.longitude<-73.75)&(data.latitude>40.4)&(data.latitude<40.9))]
+    #put it in matrix form
+    #print(data_c.shape[0],data_e.shape[0])
+    coords=data_c.as_matrix(columns=['latitude', "longitude"])
+    
+    brc = Birch(branching_factor=500, n_clusters=n_clusters, threshold=0.001,compute_labels=True)
+
+    brc.fit(coords)
+    clusters=brc.predict(coords)
+    data_c["cluster_"+str(n_clusters)]=clusters
+    data_e["cluster_"+str(n_clusters)]=-1 #assign cluster label -1 for the non NYC listings 
+    #print(data_c.shape[0],data_e.shape[0])
+    data=pd.concat([data_c,data_e])
+    
+    return data
+#############################################################
+def create_median_difference_feature(df,n_clusters=0,w_bath=0):
+    
+    def multi_map(row):        
+        now_control=control[(row['bedrooms'],row['bathrooms'])]
+        now_value=(value[(row.bedrooms,row['cluster_'+str(n_clusters)],row.bathrooms)]-now_control)/now_control
+        return now_value  
+    
+    def multi_map1(row):        
+        now_control=control[(row['bedrooms'],row['bathrooms'])]
+        now_value=value[(row.bedrooms,row['cluster_'+str(n_clusters)],row.bathrooms)]-now_control
+        return now_value
+    
+    if n_clusters==0:
+        if w_bath==1:
+            diff=df.groupby(['bedrooms','bathrooms'])['price'].median()-df.groupby('bedrooms')['price'].median()
+            value=(df.groupby(['bedrooms','bathrooms'])['price'].median()-df.groupby('bedrooms')['price'].median())/df.groupby('bedrooms')['price'].median()
+            df["med_dbath_cbed"]=df.apply(lambda row: value[(row.bedrooms,row.bathrooms)],axis=1)
+            df["diff_dbath_cbed"]=df.apply(lambda row: diff[(row.bedrooms,row.bathrooms)],axis=1)
+        else:
+            value=(df.groupby('bedrooms')['price'].median()-df.price.median())/df.price.median()
+            diff=df.groupby('bedrooms')['price'].median()-df.price.median()
+            df["med_dbed"]=df.apply(lambda row: value[row.bedrooms],axis=1)
+            df["diff_dbed"]=df.apply(lambda row: diff[row.bedrooms],axis=1)
+    else:
+        df=cluster_latlon(n_clusters,df)
+        if w_bath==0:
+            control=df.groupby('bedrooms')['price'].median()
+            value=(df.groupby(['bedrooms','cluster_'+str(n_clusters)])['price'].median()-control)/control
+            diff=(df.groupby(['bedrooms','cluster_'+str(n_clusters)])['price'].median()-control)
+            df["med_"+str(n_clusters)+"_cbed"]=df.apply(lambda row: value[(row['bedrooms'],row['cluster_'+str(n_clusters)])],axis=1)
+            df["diff_"+str(n_clusters)+"_cbed"]=df.apply(lambda row: diff[(row['bedrooms'],row['cluster_'+str(n_clusters)])],axis=1)
+        else:
+            control=df.groupby(['bedrooms','bathrooms'])['price'].median()
+            value=df.groupby(['bedrooms','cluster_'+str(n_clusters),'bathrooms'])['price'].median()
+            df["med_"+str(n_clusters)+"_cbedbath"]=df.apply(multi_map,axis=1)
+            df["diff_"+str(n_clusters)+"_cbedbath"]=df.apply(multi_map1,axis=1)
+
+    return df
+
+
+#usage:
+
+#include difference caused by num_bedrooms along all data
+#data["med_dbed"] added
+data=create_median_difference_feature(data,0,0)
+
+#include difference caused by num_bathrooms for each num_bedrooms
+#data["med_dbath_cbed"] added
+data=create_median_difference_feature(data,0,1)
+
+#include difference caused by clusters(100) for each num_bedrooms
+#data["med_100_cbed], data[cluster_100] added
+data=create_median_difference_feature(data,50,0)
+data=create_median_difference_feature(data,500,0)
+data=create_median_difference_feature(data,1000,0)
+
+#include difference caused by clusters(300) for each num_bedroomsXnum_bathrooms combination
+#data["med_300_cbedbath], data[cluster_300] added
+data=create_median_difference_feature(data,50,1)
+data=create_median_difference_feature(data,500,1)
+data=create_median_difference_feature(data,1000,1)
+
+When transforming the testing/valid data,
+First we need to check whether the cordinate(latitude,longitude) is in NYC, then we used the trained cluster mapping to create new feature.
+
+For each row in the testing data:
+  If ~((row.longitude>-74.05)&(row.longitude<-73.75)&(row.latitude>40.4)&(row.latitude<40.9)):
+    return -1
+  else:
+    coords=row.as_matrix(columns=['latitude', "longitude"])
+    return brc.predict(coords)
+
+
+
+
+
+
