@@ -1,2 +1,2 @@
 ### Poster for MLCS project
-## Based on LaTex poster template (BAposter - landscape orientation)
+Based on LaTex poster template (BAposter - landscape orientation)
